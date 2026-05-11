@@ -3,23 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>世界の国旗クイズ200問</title>
+<title>世界の国旗クイズ</title>
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#1e3a8a,#dc2626);color:white;text-align:center;}
-header{padding:25px;font-size:32px;font-weight:bold;background:rgba(0,0,0,0.35);}
-.ad{margin:20px auto;width:728px;max-width:90%;height:90px;border:2px dashed rgba(255,255,255,0.5);border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.15);}
-.container{max-width:900px;margin:30px auto;padding:25px;background:rgba(255,255,255,0.12);border-radius:20px;}
-select,button{padding:13px;margin:8px;font-size:16px;border-radius:10px;border:none;}
-.flag{font-size:90px;margin:20px 0;}
-.question{font-size:25px;margin:20px 0;line-height:1.6;}
-.choices{display:grid;gap:15px;}
-.choice-btn{background:white;color:#111;cursor:pointer;}
-.choice-btn:hover{transform:scale(1.03);}
-.correct{background:#16a34a!important;color:white;}
-.wrong{background:#dc2626!important;color:white;}
-.next-btn{background:#facc15;font-weight:bold;cursor:pointer;}
-.info,.score{margin-top:18px;font-size:20px;}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#1e3a8a,#dc2626);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:25px;
+  font-size:32px;
+  font-weight:bold;
+  background:rgba(0,0,0,0.35);
+}
+
+.ad{
+  margin:20px auto;
+  width:728px;
+  max-width:90%;
+  height:90px;
+  border:2px dashed rgba(255,255,255,0.5);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.15);
+}
+
+.container{
+  max-width:900px;
+  margin:30px auto;
+  padding:25px;
+  background:rgba(255,255,255,0.12);
+  border-radius:20px;
+}
+
+select,button{
+  padding:13px;
+  margin:8px;
+  font-size:16px;
+  border-radius:10px;
+  border:none;
+}
+
+.flag-image{
+  width:260px;
+  max-width:80%;
+  border-radius:14px;
+  margin:20px 0;
+  box-shadow:0 0 20px rgba(0,0,0,0.45);
+  background:white;
+}
+
+.question{
+  font-size:25px;
+  margin:20px 0;
+  line-height:1.6;
+}
+
+.choices{
+  display:grid;
+  gap:15px;
+}
+
+.choice-btn{
+  background:white;
+  color:#111;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.choice-btn:hover{
+  transform:scale(1.03);
+}
+
+.correct{
+  background:#16a34a!important;
+  color:white;
+}
+
+.wrong{
+  background:#dc2626!important;
+  color:white;
+}
+
+.next-btn{
+  background:#facc15;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.info,.score{
+  margin-top:18px;
+  font-size:20px;
+}
 </style>
 </head>
 
@@ -27,7 +108,8 @@ select,button{padding:13px;margin:8px;font-size:16px;border-radius:10px;border:n
 
 <header>世界の国旗クイズ 200問版</header>
 
-<div class="ad"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8398161859137802"
+<div class="ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8398161859137802"
      crossorigin="anonymous"></script>
 <!-- チェス -->
 <ins class="adsbygoogle"
@@ -38,7 +120,8 @@ select,button{padding:13px;margin:8px;font-size:16px;border-radius:10px;border:n
      data-full-width-responsive="true"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script></div>
+</script>
+</div>
 
 <div class="container">
 
@@ -58,172 +141,427 @@ select,button{padding:13px;margin:8px;font-size:16px;border-radius:10px;border:n
   <option value="50">50問</option>
 </select>
 
-<button onclick="startQuiz()">スタート</button>
+<button onclick="startQuiz()">
+スタート
+</button>
 
-<div class="flag" id="flag">🏳️</div>
-<div class="question" id="question">スタートを押してください</div>
+<br>
+
+<img
+id="flag"
+class="flag-image"
+src=""
+alt="国旗">
+
+<div class="question" id="question">
+スタートを押してください
+</div>
+
 <div class="choices" id="choices"></div>
+
 <div class="info" id="info"></div>
-<button class="next-btn" onclick="nextQuestion()">次の問題へ</button>
+
+<button class="next-btn" onclick="nextQuestion()">
+次の問題へ
+</button>
+
 <div class="score" id="score"></div>
 
 </div>
 
 <script>
+
 const baseQuestions = [
-{category:"asia",flag:"🇯🇵",question:"この国旗はどこの国？",choices:["日本","韓国","中国","ベトナム"],answer:"日本"},
-{category:"asia",flag:"🇰🇷",question:"この国旗はどこの国？",choices:["韓国","日本","タイ","フィリピン"],answer:"韓国"},
-{category:"asia",flag:"🇨🇳",question:"この国旗はどこの国？",choices:["中国","ベトナム","シンガポール","マレーシア"],answer:"中国"},
-{category:"asia",flag:"🇮🇳",question:"この国旗はどこの国？",choices:["インド","パキスタン","バングラデシュ","ネパール"],answer:"インド"},
-{category:"asia",flag:"🇹🇭",question:"この国旗はどこの国？",choices:["タイ","ラオス","カンボジア","ミャンマー"],answer:"タイ"},
-{category:"asia",flag:"🇻🇳",question:"この国旗はどこの国？",choices:["ベトナム","中国","北朝鮮","トルコ"],answer:"ベトナム"},
-{category:"asia",flag:"🇸🇬",question:"この国旗はどこの国？",choices:["シンガポール","マレーシア","インドネシア","ブルネイ"],answer:"シンガポール"},
-{category:"asia",flag:"🇮🇩",question:"この国旗はどこの国？",choices:["インドネシア","モナコ","ポーランド","シンガポール"],answer:"インドネシア"},
 
-{category:"europe",flag:"🇫🇷",question:"この国旗はどこの国？",choices:["フランス","イタリア","オランダ","ロシア"],answer:"フランス"},
-{category:"europe",flag:"🇩🇪",question:"この国旗はどこの国？",choices:["ドイツ","ベルギー","スペイン","ポーランド"],answer:"ドイツ"},
-{category:"europe",flag:"🇮🇹",question:"この国旗はどこの国？",choices:["イタリア","フランス","アイルランド","ハンガリー"],answer:"イタリア"},
-{category:"europe",flag:"🇬🇧",question:"この国旗はどこの国？",choices:["イギリス","オーストラリア","ニュージーランド","アメリカ"],answer:"イギリス"},
-{category:"europe",flag:"🇪🇸",question:"この国旗はどこの国？",choices:["スペイン","ポルトガル","ドイツ","ルーマニア"],answer:"スペイン"},
-{category:"europe",flag:"🇵🇹",question:"この国旗はどこの国？",choices:["ポルトガル","スペイン","イタリア","ギリシャ"],answer:"ポルトガル"},
-{category:"europe",flag:"🇳🇱",question:"この国旗はどこの国？",choices:["オランダ","フランス","ロシア","セルビア"],answer:"オランダ"},
-{category:"europe",flag:"🇸🇪",question:"この国旗はどこの国？",choices:["スウェーデン","ノルウェー","フィンランド","デンマーク"],answer:"スウェーデン"},
+{
+category:"asia",
+flag:"https://flagcdn.com/w320/jp.png",
+question:"この国旗はどこの国？",
+choices:["日本","韓国","中国","ベトナム"],
+answer:"日本"
+},
 
-{category:"america",flag:"🇺🇸",question:"この国旗はどこの国？",choices:["アメリカ","カナダ","メキシコ","チリ"],answer:"アメリカ"},
-{category:"america",flag:"🇨🇦",question:"この国旗はどこの国？",choices:["カナダ","アメリカ","ペルー","ブラジル"],answer:"カナダ"},
-{category:"america",flag:"🇧🇷",question:"この国旗はどこの国？",choices:["ブラジル","アルゼンチン","コロンビア","メキシコ"],answer:"ブラジル"},
-{category:"america",flag:"🇦🇷",question:"この国旗はどこの国？",choices:["アルゼンチン","ウルグアイ","チリ","パラグアイ"],answer:"アルゼンチン"},
-{category:"america",flag:"🇲🇽",question:"この国旗はどこの国？",choices:["メキシコ","イタリア","ペルー","スペイン"],answer:"メキシコ"},
-{category:"america",flag:"🇨🇱",question:"この国旗はどこの国？",choices:["チリ","キューバ","パナマ","プエルトリコ"],answer:"チリ"},
-{category:"america",flag:"🇨🇴",question:"この国旗はどこの国？",choices:["コロンビア","エクアドル","ベネズエラ","ボリビア"],answer:"コロンビア"},
-{category:"america",flag:"🇵🇪",question:"この国旗はどこの国？",choices:["ペルー","カナダ","メキシコ","チリ"],answer:"ペルー"},
+{
+category:"asia",
+flag:"https://flagcdn.com/w320/kr.png",
+question:"この国旗はどこの国？",
+choices:["韓国","日本","中国","タイ"],
+answer:"韓国"
+},
 
-{category:"africa",flag:"🇿🇦",question:"この国旗はどこの国？",choices:["南アフリカ","ケニア","ナイジェリア","エジプト"],answer:"南アフリカ"},
-{category:"africa",flag:"🇪🇬",question:"この国旗はどこの国？",choices:["エジプト","モロッコ","チュニジア","アルジェリア"],answer:"エジプト"},
-{category:"africa",flag:"🇳🇬",question:"この国旗はどこの国？",choices:["ナイジェリア","ガーナ","ケニア","南アフリカ"],answer:"ナイジェリア"},
-{category:"africa",flag:"🇰🇪",question:"この国旗はどこの国？",choices:["ケニア","エチオピア","タンザニア","ウガンダ"],answer:"ケニア"},
-{category:"africa",flag:"🇲🇦",question:"この国旗はどこの国？",choices:["モロッコ","チュニジア","エジプト","アルジェリア"],answer:"モロッコ"},
-{category:"africa",flag:"🇬🇭",question:"この国旗はどこの国？",choices:["ガーナ","ナイジェリア","セネガル","マリ"],answer:"ガーナ"},
-{category:"africa",flag:"🇪🇹",question:"この国旗はどこの国？",choices:["エチオピア","ケニア","ソマリア","スーダン"],answer:"エチオピア"},
-{category:"africa",flag:"🇹🇿",question:"この国旗はどこの国？",choices:["タンザニア","ケニア","ウガンダ","ルワンダ"],answer:"タンザニア"},
+{
+category:"asia",
+flag:"https://flagcdn.com/w320/cn.png",
+question:"この国旗はどこの国？",
+choices:["中国","ベトナム","北朝鮮","モンゴル"],
+answer:"中国"
+},
 
-{category:"oceania",flag:"🇦🇺",question:"この国旗はどこの国？",choices:["オーストラリア","ニュージーランド","イギリス","フィジー"],answer:"オーストラリア"},
-{category:"oceania",flag:"🇳🇿",question:"この国旗はどこの国？",choices:["ニュージーランド","オーストラリア","フィジー","サモア"],answer:"ニュージーランド"},
-{category:"oceania",flag:"🇫🇯",question:"この国旗はどこの国？",choices:["フィジー","サモア","トンガ","パラオ"],answer:"フィジー"},
-{category:"oceania",flag:"🇼🇸",question:"この国旗はどこの国？",choices:["サモア","フィジー","トンガ","バヌアツ"],answer:"サモア"},
-{category:"oceania",flag:"🇹🇴",question:"この国旗はどこの国？",choices:["トンガ","サモア","フィジー","ナウル"],answer:"トンガ"},
-{category:"oceania",flag:"🇵🇼",question:"この国旗はどこの国？",choices:["パラオ","ナウル","ミクロネシア","マーシャル諸島"],answer:"パラオ"},
-{category:"oceania",flag:"🇳🇷",question:"この国旗はどこの国？",choices:["ナウル","パラオ","ツバル","キリバス"],answer:"ナウル"},
-{category:"oceania",flag:"🇻🇺",question:"この国旗はどこの国？",choices:["バヌアツ","フィジー","サモア","トンガ"],answer:"バヌアツ"}
-];
+{
+category:"asia",
+flag:"https://flagcdn.com/w320/in.png",
+question:"この国旗はどこの国？",
+choices:["インド","パキスタン","ネパール","バングラデシュ"],
+answer:"インド"
+},
 
-const quizData=[];
-for(let i=0;i<5;i++){
-  baseQuestions.forEach((q,index)=>{
-    quizData.push({
-      category:q.category,
-      flag:q.flag,
-      question:`【${i+1}-${index+1}】${q.question}`,
-      choices:[...q.choices],
-      answer:q.answer
-    });
-  });
+{
+category:"asia",
+flag:"https://flagcdn.com/w320/th.png",
+question:"この国旗はどこの国？",
+choices:["タイ","ラオス","カンボジア","ミャンマー"],
+answer:"タイ"
+},
+
+{
+category:"europe",
+flag:"https://flagcdn.com/w320/fr.png",
+question:"この国旗はどこの国？",
+choices:["フランス","イタリア","ドイツ","ベルギー"],
+answer:"フランス"
+},
+
+{
+category:"europe",
+flag:"https://flagcdn.com/w320/de.png",
+question:"この国旗はどこの国？",
+choices:["ドイツ","ベルギー","スペイン","ポーランド"],
+answer:"ドイツ"
+},
+
+{
+category:"europe",
+flag:"https://flagcdn.com/w320/it.png",
+question:"この国旗はどこの国？",
+choices:["イタリア","フランス","アイルランド","ハンガリー"],
+answer:"イタリア"
+},
+
+{
+category:"europe",
+flag:"https://flagcdn.com/w320/gb.png",
+question:"この国旗はどこの国？",
+choices:["イギリス","オーストラリア","ニュージーランド","アメリカ"],
+answer:"イギリス"
+},
+
+{
+category:"europe",
+flag:"https://flagcdn.com/w320/es.png",
+question:"この国旗はどこの国？",
+choices:["スペイン","ポルトガル","ルーマニア","メキシコ"],
+answer:"スペイン"
+},
+
+{
+category:"america",
+flag:"https://flagcdn.com/w320/us.png",
+question:"この国旗はどこの国？",
+choices:["アメリカ","カナダ","メキシコ","ブラジル"],
+answer:"アメリカ"
+},
+
+{
+category:"america",
+flag:"https://flagcdn.com/w320/ca.png",
+question:"この国旗はどこの国？",
+choices:["カナダ","アメリカ","ペルー","アルゼンチン"],
+answer:"カナダ"
+},
+
+{
+category:"america",
+flag:"https://flagcdn.com/w320/br.png",
+question:"この国旗はどこの国？",
+choices:["ブラジル","アルゼンチン","メキシコ","チリ"],
+answer:"ブラジル"
+},
+
+{
+category:"america",
+flag:"https://flagcdn.com/w320/ar.png",
+question:"この国旗はどこの国？",
+choices:["アルゼンチン","ウルグアイ","チリ","パラグアイ"],
+answer:"アルゼンチン"
+},
+
+{
+category:"america",
+flag:"https://flagcdn.com/w320/mx.png",
+question:"この国旗はどこの国？",
+choices:["メキシコ","スペイン","イタリア","ペルー"],
+answer:"メキシコ"
+},
+
+{
+category:"africa",
+flag:"https://flagcdn.com/w320/za.png",
+question:"この国旗はどこの国？",
+choices:["南アフリカ","ケニア","ナイジェリア","エジプト"],
+answer:"南アフリカ"
+},
+
+{
+category:"africa",
+flag:"https://flagcdn.com/w320/eg.png",
+question:"この国旗はどこの国？",
+choices:["エジプト","モロッコ","アルジェリア","チュニジア"],
+answer:"エジプト"
+},
+
+{
+category:"africa",
+flag:"https://flagcdn.com/w320/ng.png",
+question:"この国旗はどこの国？",
+choices:["ナイジェリア","ガーナ","ケニア","南アフリカ"],
+answer:"ナイジェリア"
+},
+
+{
+category:"africa",
+flag:"https://flagcdn.com/w320/ke.png",
+question:"この国旗はどこの国？",
+choices:["ケニア","タンザニア","ウガンダ","エチオピア"],
+answer:"ケニア"
+},
+
+{
+category:"africa",
+flag:"https://flagcdn.com/w320/ma.png",
+question:"この国旗はどこの国？",
+choices:["モロッコ","チュニジア","エジプト","アルジェリア"],
+answer:"モロッコ"
+},
+
+{
+category:"oceania",
+flag:"https://flagcdn.com/w320/au.png",
+question:"この国旗はどこの国？",
+choices:["オーストラリア","ニュージーランド","イギリス","フィジー"],
+answer:"オーストラリア"
+},
+
+{
+category:"oceania",
+flag:"https://flagcdn.com/w320/nz.png",
+question:"この国旗はどこの国？",
+choices:["ニュージーランド","オーストラリア","フィジー","サモア"],
+answer:"ニュージーランド"
+},
+
+{
+category:"oceania",
+flag:"https://flagcdn.com/w320/fj.png",
+question:"この国旗はどこの国？",
+choices:["フィジー","サモア","トンガ","ナウル"],
+answer:"フィジー"
+},
+
+{
+category:"oceania",
+flag:"https://flagcdn.com/w320/ws.png",
+question:"この国旗はどこの国？",
+choices:["サモア","フィジー","トンガ","バヌアツ"],
+answer:"サモア"
+},
+
+{
+category:"oceania",
+flag:"https://flagcdn.com/w320/to.png",
+question:"この国旗はどこの国？",
+choices:["トンガ","サモア","フィジー","パラオ"],
+answer:"トンガ"
 }
 
-let currentQuiz=[];
-let currentIndex=0;
-let score=0;
-let answered=false;
+];
+
+const quizData = [];
+
+for(let i=0;i<8;i++){
+
+  baseQuestions.forEach((q,index)=>{
+
+    quizData.push({
+
+      category:q.category,
+      flag:q.flag,
+
+      question:`【${i+1}-${index+1}】${q.question}`,
+
+      choices:[...q.choices],
+
+      answer:q.answer
+
+    });
+
+  });
+
+}
+
+let currentQuiz = [];
+let currentIndex = 0;
+let score = 0;
+let answered = false;
 
 function shuffle(array){
+
   return array.sort(()=>Math.random()-0.5);
+
 }
 
 function startQuiz(){
-  const category=document.getElementById("categorySelect").value;
-  const count=Number(document.getElementById("questionCount").value);
 
-  let filtered=category==="all"
-    ? [...quizData]
-    : quizData.filter(q=>q.category===category);
+  const category =
+    document.getElementById("categorySelect").value;
 
-  currentQuiz=shuffle(filtered).slice(0,count);
+  const count =
+    Number(document.getElementById("questionCount").value);
+
+  let filtered;
+
+  if(category==="all"){
+
+    filtered=[...quizData];
+
+  }else{
+
+    filtered=quizData.filter(q=>q.category===category);
+
+  }
+
+  currentQuiz=
+    shuffle(filtered).slice(0,count);
+
   currentIndex=0;
+
   score=0;
+
   showQuestion();
+
 }
 
 function showQuestion(){
+
   answered=false;
+
   const q=currentQuiz[currentIndex];
 
-  document.getElementById("flag").textContent=q.flag;
+  document.getElementById("flag").src=q.flag;
+
   document.getElementById("question").textContent=
     `第${currentIndex+1}問 / ${currentQuiz.length}　${q.question}`;
 
-  const choicesDiv=document.getElementById("choices");
+  const choicesDiv=
+    document.getElementById("choices");
+
   choicesDiv.innerHTML="";
 
   shuffle([...q.choices]).forEach(choice=>{
+
     const btn=document.createElement("button");
+
     btn.textContent=choice;
+
     btn.className="choice-btn";
+
     btn.onclick=()=>checkAnswer(btn,choice,q.answer);
+
     choicesDiv.appendChild(btn);
+
   });
 
   document.getElementById("info").textContent="";
-  document.getElementById("score").textContent=`スコア：${score}`;
+
+  document.getElementById("score").textContent=
+    `スコア：${score}`;
+
 }
 
 function checkAnswer(button,selected,answer){
+
   if(answered)return;
+
   answered=true;
 
-  document.querySelectorAll(".choice-btn").forEach(btn=>{
-    if(btn.textContent===answer){
-      btn.classList.add("correct");
-    }
-  });
+  document.querySelectorAll(".choice-btn")
+    .forEach(btn=>{
+
+      if(btn.textContent===answer){
+
+        btn.classList.add("correct");
+
+      }
+
+    });
 
   if(selected===answer){
+
     score++;
-    document.getElementById("info").textContent="正解！";
+
+    document.getElementById("info").textContent=
+      "正解！";
+
   }else{
+
     button.classList.add("wrong");
-    document.getElementById("info").textContent=`不正解！ 正解は「${answer}」`;
+
+    document.getElementById("info").textContent=
+      `不正解！ 正解は「${answer}」`;
+
   }
 
-  document.getElementById("score").textContent=`スコア：${score}`;
+  document.getElementById("score").textContent=
+    `スコア：${score}`;
 
   setTimeout(()=>{
+
     nextQuestion();
+
   },1200);
+
 }
 
 function nextQuestion(){
+
   currentIndex++;
 
   if(currentIndex>=currentQuiz.length){
+
     endQuiz();
+
   }else{
+
     showQuestion();
+
   }
+
 }
 
 function endQuiz(){
-  document.getElementById("flag").textContent="🏁";
-  document.getElementById("question").textContent="クイズ終了！";
+
+  document.getElementById("flag").src="";
+
+  document.getElementById("question").textContent=
+    "クイズ終了！";
+
   document.getElementById("choices").innerHTML="";
+
   document.getElementById("info").textContent=
     `${currentQuiz.length}問中 ${score}問正解！`;
+
   document.getElementById("score").textContent="";
 
   const retry=document.createElement("button");
+
   retry.textContent="もう一度プレイ";
+
   retry.onclick=startQuiz;
-  document.getElementById("choices").appendChild(retry);
+
+  document.getElementById("choices")
+    .appendChild(retry);
+
 }
+
 </script>
 
 </body>
